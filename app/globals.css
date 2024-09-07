@@ -5,13 +5,28 @@
 :root {
   --background: rgba(252, 246, 249, 0.72);
   --primary-color: #222260;
-  --primary-color2: 'color: rgba(34, 34, 96, .6)';
-  --primary-color3: 'color: rgba(34, 34, 96, .4)';
+  --primary-color2: rgba(34, 34, 96, .6);
+  --primary-color3: rgba(34, 34, 96, .4);
   --green: #42AD00;
   --grey: #aaa;
   --accent: #F56692;
   --delete: #FF0000;
-  --border: #fefdfe;
+  --border: white;
+  --highlight-background: #faf4f8;
+}
+
+.dark {
+  --background: #121212;
+  --primary-color: #fff;
+  --primary-color2:  rgba(255, 255, 255, 0.9);
+  --primary-color3: rgba(255, 255, 255, 0.7);
+  --green: #42AD00;
+  --grey: #aaa;
+  --accent: #FF0000;
+  --delete: red;
+  --border: rgba(255, 255, 255, 0.3);
+  --highlight-background: rgba(255, 255, 255, 0.12);
+  background-image: url('./public/assets/darkBg.jpg');
 }
 
 body {
@@ -19,6 +34,7 @@ body {
   top: 0;
   margin: 0;
   padding: 0;
+  display: flex;
 }
 
 html {

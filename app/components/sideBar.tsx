@@ -3,7 +3,7 @@ import Link from "next/link";
 import avatar from '../public/assets/darkBg.jpg';
 import ChangeTheme from "./changeTheme";
 
-export default function SideBar() {
+export default function SideBar() : JSX.Element {
     return (
         <div className="
         h-full

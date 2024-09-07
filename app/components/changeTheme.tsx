@@ -4,7 +4,7 @@ import { FaMoon } from "react-icons/fa";
 import { MdSunny } from "react-icons/md";
 import {useState, useEffect} from 'react';
 
-const ChangeTheme = () => {
+const ChangeTheme = () : JSX.Element => {
     
     const [dark,setDark] = useState<boolean>();
 

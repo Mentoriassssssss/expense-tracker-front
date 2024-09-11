@@ -1,8 +1,7 @@
 import { FaPlus,FaTrashCan } from "react-icons/fa6";
 import { FaCalendar } from "react-icons/fa";
 
-export default function Income() {
-
+export default function Expenses () {
     const template3 = [
         {
             title: "title",
@@ -39,13 +38,13 @@ export default function Income() {
         p-4
         gap-4
     ">
-        <div className="w-full h-auto text-[var(--primary-color)] text-3xl font-semibold">Incomes</div>
+        <div className="w-full h-auto text-[var(--primary-color)] text-3xl font-semibold">Expenses</div>
         <div className="w-full flex gap-4 items-center justify-center
         border-2 border-[var(--border)] rounded-xl
         p-4
         bg-[var(--highlight-background)]
-        text-[var(--green)]">
-            <p className="text-[var(--primary-color)] text-2xl font-semibold">Total incomes: </p>
+        text-[var(--delete)]">
+            <p className="text-[var(--primary-color)] text-2xl font-semibold">Total expenses: </p>
             {" "}
             <p className=" text-2xl font-semibold">VNĐ</p>
         </div>
@@ -87,7 +86,7 @@ export default function Income() {
                 p-2
                 focus:outline-none
                 rounded-lg">
-                    <option className="text-[var(--primary-color)] bg-[transparent]" value="" defaultValue={""} disabled selected>Select option</option>
+                    <option className="text-[var(--primary-color)] bg-[transparent]" value="" disabled selected>Select option</option>
                 </select>
                 <textarea
                 placeholder="Add a reference"
@@ -101,7 +100,7 @@ export default function Income() {
             </form>
             <button type="submit" className="w-1/2 text-white bg-[var(--accent)] px-2 py-4 rounded-[100px] flex items-center justify-center gap-2">
                 <FaPlus size={20}/>
-                Add Income
+                Add Expense
             </button>
             </div>
             
@@ -118,7 +117,7 @@ export default function Income() {
                         <div className="border-2 border-[var(--reverse-text-color)] rounded-xl p-2">{item.icon}</div>
                         <div className="grow flex flex-col items-start justify-start">
                             <div className="flex gap-2 justify-center items-center">
-                                <div className="w-2 h-2 bg-[var(--green)] rounded-full"></div>
+                                <div className="w-2 h-2 bg-[var(--delete)] rounded-full"></div>
                                 <p className="text-[var(--primary-color)] text-lg font-semibold">{item.title}</p>
                             </div>
                             <div className="flex gap-4 justify-center items-center text-[var(--primary-color2)] text-md">

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import SideBar from "./components/sideBar";
 
+import {Provider} from "./globalState/Provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,13 +14,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" className="h-full w-full flex">
       <body
         className={`grow-1 w-full p-4 gap-4 flex`}
       >
+        <Provider >
         <SideBar />
         {children}
+        </Provider>
       </body>
     </html>
   );

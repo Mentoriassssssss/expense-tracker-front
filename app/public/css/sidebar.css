@@ -1,0 +1,12 @@
+.navLinks a {
+    color: var(--primary-color3);
+}
+
+.line {
+    opacity: 0;
+    transition: linear .1s;
+}
+
+.active {
+    color: var(--primary-color) !important;
+}

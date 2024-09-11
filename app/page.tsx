@@ -1,6 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
+import NavLink from "./components/navLink";
+
 
 export default function Home() {
+
   return (
     <div className="h-full
     grow

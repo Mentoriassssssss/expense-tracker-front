@@ -9,8 +9,9 @@
   --primary-color3: rgba(34, 34, 96, .4);
   --reverse-text-color: rgba(255, 255, 255, 0.9);
   --green: #42AD00;
+  --green-bg: #B2FBA5;
   --grey: #aaa;
-  --accent: #F56692;
+  --red-bg: rgba(255,225,225,1);
   --delete: #FF0000;
   --border: white;
   --highlight-background: #faf4f8;
@@ -23,8 +24,9 @@
   --primary-color3: rgba(255, 255, 255, 0.7);
   --reverse-text-color: rgba(0, 0, 0, 0.9);
   --green: #42AD00;
+  --green-bg: #B2FBA5;
   --grey: #aaa;
-  --accent: #F56692;
+  --red-bg: rgba(255,225,225,1);
   --delete: red;
   --border: rgba(255, 255, 255, 0.3);
   --highlight-background: rgba(255, 255, 255, 0.12);
@@ -42,4 +44,8 @@ body {
 html {
   margin: 0;
   padding: 0;
+}
+
+select[data-chosen] {
+  color: var(--primary-color) !important;
 }

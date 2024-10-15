@@ -8,14 +8,21 @@ import ChangeTheme from "./changeTheme";
 import { FaSignOutAlt } from "react-icons/fa";
 import { FaChartLine, FaCreditCard, FaMoneyBillTrendUp, FaMoneyBillWave } from "react-icons/fa6";
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobal } from "../globalState/Provider";
+import { GlobalState } from "../globalState/Provider";
 
 import '../public/css/sidebar.css';
 
 export default function SideBar(): JSX.Element {
 
     const [state, dispatch] = useGlobal();
+    const [user, setUser] = useState<GlobalState["currentUser"]>({
+        _id: 'some_id',
+        username: 'some_username',
+        name: 'John Doe',
+        money: 0,
+    });
 
     const navLinks = [
         { name: "Dashboard", path: "/", icon: FaChartLine },
@@ -23,6 +30,11 @@ export default function SideBar(): JSX.Element {
         { name: "Incomes", path: "/incomes", icon: FaMoneyBillTrendUp },
         { name: "Expenses", path: "/expenses", icon: FaMoneyBillWave },
     ]
+
+    const formatter = new Intl.NumberFormat('vi-VI', {
+        style: 'currency',
+        currency: 'VND',
+    });
 
     useEffect(() => {
         if (state?.path) {
@@ -34,10 +46,13 @@ export default function SideBar(): JSX.Element {
             newActiveTab?.classList.add("active");
 
             if (line) {
-                line.style.top = newActiveTab.offsetTop + (32-24)/2 + "px";
+                line.style.top = newActiveTab.offsetTop + (32 - 24) / 2 + "px";
                 line.style.height = '24px';
                 line.style.opacity = "1";
             }
+        }
+        if (state.currentUser) {
+            setUser(state.currentUser);
         }
     }, [state])
 
@@ -45,7 +60,7 @@ export default function SideBar(): JSX.Element {
         <div className="
         h-full
         w-1/5
-        min-w-60
+        min-w-[250px]
         bg-[var(--background)]
         border-2
         border-[var(--border)]
@@ -69,8 +84,8 @@ export default function SideBar(): JSX.Element {
                     />
                 </div>
                 <div className="flex flex-col justify-center grow">
-                    <h3 className="text-[var(--primary-color)] text-lg font-bold">Name</h3>
-                    <p className="text-[var(--primary-color3)] text-sm font-medium">Your money</p>
+                    <h3 className="text-[var(--primary-color)] text-lg font-bold">{user?.name || 'John Doe'}</h3>
+                    <p className="text-[var(--primary-color3)] text-sm font-medium">{formatter.format(user?.money || 0)}</p>
                 </div>
                 <ChangeTheme />
             </div>
@@ -80,7 +95,7 @@ export default function SideBar(): JSX.Element {
                         <li key={link.name} onClick={() => dispatch({ type: "setPath", payload: link.path })} >
                             <NavLink href={link.path}>
                                 <div className="w-full h-full flex items-center gap-2 pl-2 leading-8 hover:text-[var(--primary-color)]">
-                                {link.icon && <link.icon size={18} />}{link.name}
+                                    {link.icon && <link.icon size={18} />}{link.name}
                                 </div>
                             </NavLink>
                         </li>
@@ -91,7 +106,7 @@ export default function SideBar(): JSX.Element {
             </div>
 
             <div className="text-[var(--primary-color2)] cursor-pointer text-md font-medium flex gap-2 items-center hover:text-[var(--primary-color)]">
-                <FaSignOutAlt size={18}/>Sign out
+                <FaSignOutAlt size={18} />Sign out
             </div>
         </div>
     )

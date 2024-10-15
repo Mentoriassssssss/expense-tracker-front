@@ -1,0 +1,3 @@
+.expenseList::-webkit-scrollbar {
+    display: none;
+}

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SideBar from "./components/sideBar";
 
-import {Provider} from "./globalState/Provider";
+import {Provider, useGlobal} from "./globalState/Provider";
+import { ToastProvider } from "./components/toast/toast";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,13 +17,15 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en" className="h-full w-full flex">
+    <html lang="en" className="h-full w-full flex overflow-hidden">
       <body
         className={`grow-1 w-full p-4 gap-4 flex`}
       >
         <Provider >
+        <ToastProvider >
         <SideBar />
         {children}
+        </ToastProvider>
         </Provider>
       </body>
     </html>

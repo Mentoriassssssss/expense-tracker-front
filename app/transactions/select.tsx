@@ -3,6 +3,17 @@
 import { useEffect } from "react";
 
 export default function SelectDateandType() {
+    
+const product = [
+    {
+        product_id: 6,
+        product_name: "iPhone 15 Pro Max"
+    },
+    {
+        product_id: 4,
+        product_name: "iPhone 14"
+    }
+]
 
     useEffect(() => {
         const datePicker = document.getElementById("datePicker");
@@ -49,6 +60,7 @@ export default function SelectDateandType() {
             <option className="text-black bg-[transparent]" hidden disabled value={""}>Select option</option>
             <option className="text-black bg-[transparent]" value={"Income"}>Income</option>
             <option className="text-black bg-[transparent]" value={"Expense"}>Expense</option>
+
         </select>
         </div>
     )

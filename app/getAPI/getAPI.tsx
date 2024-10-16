@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useGlobal } from '../globalState/Provider';
 
+import { Transaction } from '../globalState/Provider';
+
 interface GetAPIProps {
     type: string;
     params?: any;
@@ -31,6 +33,21 @@ const GetAPI = ({type, params} : GetAPIProps) => {
                         refreshKey: data.refresToken,
                         currentUser: data.user
                     }
+                })
+                fetch(state.apiCore + 'api/getAllTransactions', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + data.accessToken,
+                    },
+                }).then(res => res.json()).then(data => {
+                    data.sort((a: Transaction, b: Transaction) => {
+                        return new Date(a.date).getTime() - new Date(b.date).getTime()
+                    })
+                    dispatch({
+                        type: 'setTransactions',
+                        payload: data
+                    })
                 })
             })
         }

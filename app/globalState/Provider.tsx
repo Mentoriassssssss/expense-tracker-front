@@ -3,9 +3,10 @@ import { access } from "fs";
 import { createContext, useContext, useReducer, useEffect } from "react";
 import GetAPI from "../getAPI/getAPI";
 
-type Transaction = {
+export type Transaction = {
     _id: string,
     title: string,
+    type: 'Income' | 'Expense',
     amount: number,
     date: Date,
     ref: string,
@@ -41,7 +42,7 @@ const initState: GlobalState = {
         accessKey: '',
         refreshKey: '',
     },
-    apiCore: 'http://localhost:8000/',
+    apiCore: 'https://expense-tracker-back.up.railway.app/',
 }
 
 const reducer = (state: GlobalState, action: Action) => {
@@ -59,6 +60,14 @@ const reducer = (state: GlobalState, action: Action) => {
                     refreshKey: action.payload.refreshKey
                 },
                 currentUser: action.payload.currentUser
+            }
+        case "setTransactions":
+            return {
+                ...state,
+                currentUser: {
+                    ...state.currentUser,
+                    transactions: action.payload
+                }
             }
         default:
             throw new Error("Invalid action type: " + action.type);

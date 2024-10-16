@@ -14,7 +14,7 @@ const TransactionForm = () => {
         const form = event.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        fetch('http://localhost:8000/api/addTransaction', {
+        fetch(state.apiCore + 'api/addTransaction', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -84,6 +84,14 @@ const TransactionForm = () => {
                 <FaPlus size={20}/>
                 Add Transaction
             </button>
+            <button className="2xl:w-[30%] lg:w-1/2 w-full text-white bg-[var(--primary-color2)]
+            px-2 py-4 rounded-[100px] flex items-center justify-center gap-2
+            hover:scale-105
+            font-bold
+            hover:bg-[var(--primary-color)]
+            text-[var(--reverse-text-color)]
+            transition-all duration-200"
+            type="button">Cancel</button>
             </form>
     )
 }

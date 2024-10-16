@@ -18,7 +18,7 @@ export default function Income() {
         ref: string
     }
 
-    const [state, dispatch] = useGlobal();
+    const [state,] = useGlobal();
 
     const [incomeList, setIncomeList] = useState<IncomeType[]>([]);
     const toast = useToast();
@@ -34,7 +34,7 @@ export default function Income() {
             },
         }).then(res => {
             if (res.status === 200) {
-                res.json().then(data => {
+                res.json().then(() => {
                     const newIncomeList = incomeList.filter((item) => item._id !== _id);
                     setIncomeList(newIncomeList);
                     toast?.open("Transaction deleted successfully", "success");

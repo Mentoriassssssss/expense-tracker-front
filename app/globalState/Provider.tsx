@@ -1,5 +1,4 @@
 'use client';
-import { access } from "fs";
 import { createContext, useContext, useReducer, useEffect } from "react";
 import GetAPI from "../getAPI/getAPI";
 

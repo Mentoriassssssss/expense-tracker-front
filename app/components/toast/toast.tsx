@@ -1,5 +1,5 @@
 "use client";
-import {useEffect, useLayoutEffect, useMemo, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import { FaRegCheckCircle } from "react-icons/fa";
 import { ToastContext } from './toastContext';
 import { AiOutlineExclamationCircle } from "react-icons/ai";
@@ -9,11 +9,10 @@ import '../../css/toast.css';
 interface ToastProps {
     id: string;
     message: string;
-    close: () => void;
     type: "success" | "error";
 }
 
-export default function Toast({id, message, close, type} : ToastProps) {
+export default function Toast({id, message, type} : ToastProps) {
 
     useEffect(() => {
         const toast = document.getElementById(id);
@@ -21,7 +20,7 @@ export default function Toast({id, message, close, type} : ToastProps) {
         if (toast) {
             toast.classList.add('toastShowing');
         }
-    },[])
+    })
 
     
 
@@ -78,8 +77,7 @@ export function ToastProvider({children}: ToastProviderProps) {
 
     const contextValue = useMemo(() => ({
         open: openToast,
-        close: closeToast,
-    }), [])
+    }), [openToast]);
 
     return (
         <ToastContext.Provider value={contextValue}>
@@ -91,7 +89,6 @@ export function ToastProvider({children}: ToastProviderProps) {
                         id={toast.id}
                         key={toast.id}
                         message={toast.message}
-                        close={() => closeToast(toast.id)}
                         type={toast.type}
                     />
                 )

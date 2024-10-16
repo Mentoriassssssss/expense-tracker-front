@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import SideBar from "./components/sideBar";
 
-import {Provider, useGlobal} from "./globalState/Provider";
+import {Provider} from "./globalState/Provider";
 import { ToastProvider } from "./components/toast/toast";
 
 export const metadata: Metadata = {

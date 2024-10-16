@@ -1,5 +1,5 @@
 "use client";
-import { FaPlus,FaTrashCan } from "react-icons/fa6";
+import { FaTrashCan } from "react-icons/fa6";
 import { FaCalendar } from "react-icons/fa";
 import { useLayoutEffect, useState } from "react";
 import { useGlobal } from "../globalState/Provider";
@@ -18,7 +18,7 @@ export default function Expenses () {
         ref: string
     }
 
-    const [state, dispatch] = useGlobal();
+    const [state,] = useGlobal();
 
     const [expenseList, setExpenseList] = useState<ExpenseType[]>([]);
     const toast = useToast();
@@ -34,7 +34,7 @@ export default function Expenses () {
             },
         }).then(res => {
             if (res.status === 200) {
-                res.json().then(data => {
+                res.json().then(() => {
                     const newExpenseList = expenseList.filter((item) => item._id !== _id);
                     setExpenseList(newExpenseList);
                     toast?.open("Transaction deleted successfully", "success");

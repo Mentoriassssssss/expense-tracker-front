@@ -3,17 +3,6 @@
 import { useEffect } from "react";
 
 export default function SelectDateandType() {
-    
-const product = [
-    {
-        product_id: 6,
-        product_name: "iPhone 15 Pro Max"
-    },
-    {
-        product_id: 4,
-        product_name: "iPhone 14"
-    }
-]
 
     useEffect(() => {
         const datePicker = document.getElementById("datePicker");

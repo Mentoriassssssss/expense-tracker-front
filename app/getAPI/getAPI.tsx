@@ -1,16 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useGlobal } from '../globalState/Provider';
 
 import { Transaction } from '../globalState/Provider';
 
 interface GetAPIProps {
     type: string;
-    params?: any;
 }
 
-const GetAPI = ({type, params} : GetAPIProps) => {
+const GetAPI = ({type} : GetAPIProps) => {
     const [state, dispatch] = useGlobal();
 
     useEffect(() => {

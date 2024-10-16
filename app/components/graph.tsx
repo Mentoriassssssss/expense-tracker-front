@@ -18,7 +18,7 @@ ChartJS.register(
 )
 
 const Graph = () => {
-    const [state, dispatch] = useGlobal();
+    const [state,] = useGlobal();
 
     const data = {
         labels: state.currentUser?.transactions?.map((transaction) => {

@@ -6,7 +6,7 @@ import {useState, useEffect} from 'react';
 
 const ChangeTheme = () : JSX.Element => {
     
-    const [dark,setDark] = useState<boolean>();
+    const [dark,setDark] = useState<boolean>(false);
 
     const handleChangeTheme = () => {
         if (document?.querySelector('body')) {
@@ -18,7 +18,7 @@ const ChangeTheme = () : JSX.Element => {
     useEffect(() => {
         if (document !== undefined) {
             if (document?.querySelector('body')) {
-                setDark(document.querySelector('body')?.classList.contains('dark'));
+                setDark(document.querySelector('body')?.classList.contains('dark') ?? false);
             }
         }
     })

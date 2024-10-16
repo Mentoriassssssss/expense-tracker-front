@@ -1,9 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
-import NavLink from "./components/navLink";
 import Graph from "./components/graph";
 import GetAPI from "./getAPI/getAPI";
-
 
 export default function Home() {
 

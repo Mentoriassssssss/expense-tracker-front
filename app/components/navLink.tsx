@@ -6,7 +6,7 @@ import { useGlobal } from "../globalState/Provider";
 
 export default function NavLink({href, children}: { href: string, children: React.ReactNode }) {
 
-    const [state, dispatch] = useGlobal();
+    const [, dispatch] = useGlobal();
 
     return (
         <Link href = {href} onClick={() => dispatch({type: 'setPath', payload: href})}>

@@ -1,9 +1,9 @@
 import { Action, GlobalState, Transaction } from "../globalState/Provider"
 import { useGlobal } from "../globalState/Provider";
 
-export default function transformTransactions(transactions: Transaction[]) {
+export default function TransformTransactions() {
 
-    const [state, dispatch] : [GlobalState, React.Dispatch<Action>] = useGlobal();
+    const [state,] : [GlobalState, React.Dispatch<Action>] = useGlobal();
     
     const transactionsSortedByDate: Record<string, {Income: number[], Expense: number[]}> = {}
     state.currentUser?.transactions?.forEach((transaction: Transaction) => {

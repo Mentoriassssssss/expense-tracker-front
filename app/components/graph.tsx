@@ -8,7 +8,7 @@ import { GlobalState, Action } from '../globalState/Provider';
 
 import { Line } from 'react-chartjs-2';
 import GetAPI from '../getAPI/getAPI';
-import transformTransactions from '../handlingDataForGraph/transformTransactions';
+import TransformTransactions from '../handlingDataForGraph/transformTransactions';
 
 ChartJS.register(
     CategoryScale,
@@ -22,9 +22,9 @@ ChartJS.register(
 )
 
 const Graph = () => {
-    const [state, dispatch] : [GlobalState, React.Dispatch<Action>] = useGlobal();
+    const [state,] : [GlobalState, React.Dispatch<Action>] = useGlobal();
 
-    const transformedData = transformTransactions(state.currentUser?.transactions ?? []);
+    const transformedData = TransformTransactions();
 
     const data = {
         labels: Object.keys(transformedData),

@@ -7,7 +7,7 @@ export default function TotalIncome() {
         currency: 'VND',
       });
 
-    const [state, dispatch] = useGlobal();
+    const [state,] = useGlobal();
 
     return (
         <div className="border-2 relative border-[var(--border)] rounded-xl p-4 bg-[var(--highlight-background)]">

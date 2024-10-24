@@ -1,12 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AwaitGetAPI from "../getAPI/awaitGetAPI";
 import { useGlobal } from "../globalState/Provider";
 
 export default function TotalBalance() {
 
-    const [state, dispatch] = useGlobal();
+    const [state,] = useGlobal();
     const [balance, setBalance] = useState<number>(0);
 
     const formatter = new Intl.NumberFormat('vi-VI', {

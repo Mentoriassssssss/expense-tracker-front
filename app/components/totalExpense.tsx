@@ -1,6 +1,5 @@
 "use client";
 
-import AwaitGetAPI from "../getAPI/awaitGetAPI";
 import { useGlobal } from "../globalState/Provider";
 
 export default function TotalExpense() {
@@ -9,7 +8,7 @@ export default function TotalExpense() {
         currency: 'VND',
     });
 
-    const [state, dispatch] = useGlobal();
+    const [state,] = useGlobal();
 
     return (
         <div className="border-2 relative border-[var(--border)] rounded-xl p-4 bg-[var(--highlight-background)]">

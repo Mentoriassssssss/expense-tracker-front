@@ -8,7 +8,7 @@ interface GetAPIProps {
 
 export default function AwaitGetAPI ({type} : GetAPIProps) {
 
-    const [state, dispatch] = useGlobal();
+    const [state,] = useGlobal();
 
     return state.key.accessKey && <GetAPI type={type}/>;
 }

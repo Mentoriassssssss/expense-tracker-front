@@ -1,7 +1,7 @@
 'use client';
 import { FaPlus } from "react-icons/fa";
 import SelectDateandType from "./select";
-import { Transaction, useGlobal } from "../globalState/Provider";
+import { useGlobal } from "../globalState/Provider";
 import { useToast } from "../components/toast/toastContext";
 
 

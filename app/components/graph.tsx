@@ -1,11 +1,14 @@
 "use client";
 import {Chart as ChartJS, CategoryScale, LinearScale,
-    PointElement, LineElement, Title, Tooltip, Legend
+    PointElement, LineElement, Title, Tooltip, Legend, Filler
 } from 'chart.js';
 
 import { useGlobal } from '../globalState/Provider';
+import { GlobalState, Action } from '../globalState/Provider';
 
 import { Line } from 'react-chartjs-2';
+import GetAPI from '../getAPI/getAPI';
+import transformTransactions from '../handlingDataForGraph/transformTransactions';
 
 ChartJS.register(
     CategoryScale,
@@ -14,40 +17,43 @@ ChartJS.register(
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    Filler,
 )
 
 const Graph = () => {
-    const [state,] = useGlobal();
+    const [state, dispatch] : [GlobalState, React.Dispatch<Action>] = useGlobal();
+
+    const transformedData = transformTransactions(state.currentUser?.transactions ?? []);
 
     const data = {
-        labels: state.currentUser?.transactions?.map((transaction) => {
-            const {date} = transaction
-            return date;
-        }),
+        labels: Object.keys(transformedData),
         datasets: [
             {
                 label: "Income",
-                data: state.currentUser?.transactions?.map((transaction) => {
-                    if (transaction.type === 'Income') {
-                        return transaction.amount;
-                    }
+                data: Object.keys(transformedData).map((item) => {
+                    return transformedData[item].Income.reduce((a, b) => a + b, 0);
                 }),
-                backgroundColor: 'green',
+                backgroundColor: 'rgba(201, 242, 155, 0.6)',
+                borderColor: 'green',
+                fill: true,
+                tension: 0.6,
             },
             {
                 label: "Expense",
-                data: state.currentUser?.transactions?.map((transaction) => {
-                    if (transaction.type === 'Expense') {
-                        return transaction.amount;
-                    }
+                data: Object.keys(transformedData).map((item) => {
+                    return transformedData[item].Expense.reduce((a, b) => a + b, 0);
                 }),
-                backgroundColor: 'red',
+                backgroundColor: 'rgba(255, 99, 71, 0.4)',
+                borderColor: 'red',
+                fill: true,
+                tension: 0.6,
             },
         ]
     }
 
-    return (<div className='w-full h-[90%]'>
+    return (<div className='h-[90%]'>
+        {state.key.accessKey && <GetAPI type="getAllTransactions"/>}
         <Line data={data}/>
     </div>)
 

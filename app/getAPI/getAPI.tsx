@@ -24,7 +24,6 @@ const GetAPI = ({type} : GetAPIProps) => {
                     password: state.password
                 })
             }).then(res => res.json()).then(data => {
-                console.log(data)
                 dispatch({
                     type: 'setKey',
                     payload: {
@@ -33,20 +32,29 @@ const GetAPI = ({type} : GetAPIProps) => {
                         currentUser: data.user
                     }
                 })
-                fetch(state.apiCore + 'api/getAllTransactions', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + data.accessToken,
-                    },
-                }).then(res => res.json()).then(data => {
-                    data.sort((a: Transaction, b: Transaction) => {
-                        return new Date(a.date).getTime() - new Date(b.date).getTime()
-                    })
-                    dispatch({
-                        type: 'setTransactions',
-                        payload: data
-                    })
+            })
+        }
+        if (type === "getAllTransactions") {
+            fetch(state.apiCore + 'api/getAllTransactions', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + state.key.accessKey,
+                },
+            }).then(res => res.json()).then(data => {
+                let income = 0;
+                let expense = 0;
+                data.forEach((element: Transaction) => {
+                    income += element.type === 'Income' ? element.amount : 0;
+                    expense += element.type === 'Expense' ? element.amount : 0;
+                })
+                dispatch({
+                    type: 'setTransactions',
+                    payload: {
+                        transactions: data,
+                        income: income,
+                        expense: expense,
+                    }
                 })
             })
         }

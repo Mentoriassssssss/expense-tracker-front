@@ -1,12 +1,13 @@
 'use client';
 import { FaPlus } from "react-icons/fa";
 import SelectDateandType from "./select";
-import { useGlobal } from "../globalState/Provider";
+import { Transaction, useGlobal } from "../globalState/Provider";
 import { useToast } from "../components/toast/toastContext";
+
 
 const TransactionForm = () => {
 
-    const [state,] = useGlobal();
+    const [state, dispatch] = useGlobal();
     const toast = useToast();
     const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -25,6 +26,16 @@ const TransactionForm = () => {
             if (res.status === 201) {
                 form.reset();
                 toast?.open("Transaction added successfully", "success");
+                res.json().then(data => {
+                    dispatch({
+                        type: 'setTransactions',
+                        payload: {
+                            transactions: [...(state.currentUser?.transactions ?? []), data],
+                            income: state.currentUser?.income + (data.type==="Income" ? data.amount : 0),
+                            expense: state.currentUser?.expense + (data.type==="Expense" ? data.amount : 0),
+                        }
+                    })
+                })
             } else {
                 res.json().then(data => {
                     toast?.open(data.error.message, "error");

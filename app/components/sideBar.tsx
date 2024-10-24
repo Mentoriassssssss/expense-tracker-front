@@ -8,9 +8,10 @@ import ChangeTheme from "./changeTheme";
 import { FaSignOutAlt } from "react-icons/fa";
 import { FaChartLine, FaCreditCard, FaMoneyBillTrendUp, FaMoneyBillWave } from "react-icons/fa6";
 
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useGlobal } from "../globalState/Provider";
 import { GlobalState } from "../globalState/Provider";
+import formatter from "../utils/currencyFormatter";
 
 import '../public/css/sidebar.css';
 
@@ -21,7 +22,10 @@ export default function SideBar(): JSX.Element {
         _id: 'some_id',
         username: 'some_username',
         name: 'John Doe',
+        income: 0,
+        expense: 0,
         money: 0,
+        transactions: [],
     });
 
     const navLinks = [
@@ -31,12 +35,9 @@ export default function SideBar(): JSX.Element {
         { name: "Expenses", path: "/expenses", icon: FaMoneyBillWave },
     ]
 
-    const formatter = new Intl.NumberFormat('vi-VI', {
-        style: 'currency',
-        currency: 'VND',
-    });
+   
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (state?.path) {
             const newActiveTab = document.querySelector(`.navLinks a[href="${state.path}"]`) as HTMLElement;
             const activeTab = document.querySelector(".active") as HTMLAnchorElement;
@@ -51,9 +52,7 @@ export default function SideBar(): JSX.Element {
                 line.style.opacity = "1";
             }
         }
-        if (state.currentUser) {
-            setUser(state.currentUser);
-        }
+        setUser(state.currentUser);
     }, [state])
 
     return (
@@ -85,7 +84,7 @@ export default function SideBar(): JSX.Element {
                 </div>
                 <div className="flex flex-col justify-center grow">
                     <h3 className="text-[var(--primary-color)] text-lg font-bold">{user?.name || 'John Doe'}</h3>
-                    <p className="text-[var(--primary-color3)] text-sm font-medium">{formatter.format(user?.money || 0)}</p>
+                    {user && <p className="text-[var(--primary-color3)] text-sm font-medium">{formatter.format(user.money)}</p>}
                 </div>
                 <ChangeTheme />
             </div>

@@ -2,29 +2,20 @@
 import { FaPlus, FaTrashCan } from "react-icons/fa6";
 import { FaCalendar } from "react-icons/fa";
 import { useLayoutEffect, useState } from "react";
-import { useGlobal } from "../globalState/Provider";
+import { Transaction, useGlobal } from "../globalState/Provider";
 
 import '../css/incomes.css';
 import { useToast } from "../components/toast/toastContext";
+import formatter from "../utils/currencyFormatter";
 
 export default function Income() {
 
-    interface IncomeType {
-        _id: string,
-        title: string,
-        icon: JSX.Element,
-        amount: number,
-        date: string,
-        ref: string
-    }
+    const [state,dispatch] = useGlobal();
 
-    const [state,] = useGlobal();
-
-    const [incomeList, setIncomeList] = useState<IncomeType[]>([]);
+    const [incomeList, setIncomeList] = useState<Transaction[]>([]);
     const toast = useToast();
 
     const handleDeleteTransaction = (_id: string) => {
-
 
         fetch(state.apiCore + 'api/deleteTransaction/' + _id, {
             method: 'DELETE',
@@ -34,28 +25,25 @@ export default function Income() {
             },
         }).then(res => {
             if (res.status === 200) {
-                res.json().then(() => {
+                res.json().then((data) => {
                     const newIncomeList = incomeList.filter((item) => item._id !== _id);
                     setIncomeList(newIncomeList);
                     toast?.open("Transaction deleted successfully", "success");
+                    dispatch({
+                        type: 'setTransactions',
+                        payload: {
+                            transactions: state.currentUser?.transactions?.filter((item: Transaction) => item._id !== _id) || [],
+                            income: state.currentUser?.income ? state.currentUser.income - data.amount : 0,
+                            expense: state.currentUser?.expense ? state.currentUser.expense : 0,
+                        }
+                    })
                 })
             }
         })
     }
 
     useLayoutEffect(() => {
-        fetch(state.apiCore + 'api/getIncomes', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'Bearer ' + state.key.accessKey
-            }
-        }).then(res => {
-            if (res.status === 200) {
-                res.json().then(data => {
-                    setIncomeList(data)
-                })
-            }
-        })
+        setIncomeList(state.currentUser?.transactions?.filter((transaction: Transaction) => transaction.type === "Income") || []);
     }, [state.currentUser])
 
     return (
@@ -78,7 +66,9 @@ export default function Income() {
         text-[var(--green)]">
                 <p className="text-[var(--primary-color)] text-2xl font-semibold">Total incomes: </p>
                 {" "}
-                <p className=" text-2xl font-semibold">VNĐ</p>
+                <p className=" text-2xl font-semibold">
+                    {formatter.format(state?.currentUser?.income || 0)}
+                </p>
             </div>
             <div className="
         incomeList
@@ -105,7 +95,7 @@ export default function Income() {
                                         {item.amount} VNĐ
                                     </div>
                                     <div className="flex gap-1 items-center">
-                                        <FaCalendar size={16} />{item.date}
+                                        <FaCalendar size={16} />{item.date.toString()}
                                     </div>
                                     <div className="flex gap-1 items-center">
                                         <FaCalendar size={16} />

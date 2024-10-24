@@ -1,5 +1,8 @@
 import Graph from "./components/graph";
-import GetAPI from "./getAPI/getAPI";
+import TotalBalance from "./components/totalBalance";
+import TotalExpense from "./components/totalExpense";
+import TotalIncome from "./components/totalIncome";
+import AwaitGetAPI from "./getAPI/awaitGetAPI";
 
 export default function Home() {
 
@@ -15,28 +18,20 @@ export default function Home() {
     p-4
     gap-2
     ">
-      <GetAPI type="getAllTransactions"/>
       <p className="w-full text-[var(--primary-color)] text-3xl font-semibold">All transactions</p>
       <div className="h-full w-full flex gap-4">
         <div className="h-full grow-[11] flex flex-col gap-4">
-          <div className="h-[50%] w-full rounded-xl border-2 border-[var(--border)] p-4 bg-[var(--highlight-background)]">
-            <h3 className="text-2xl text-[var(--primary-color2)] font-bold">
+          <div className="h-[50%] flex flex-col items-center w-full rounded-xl border-2 border-[var(--border)] px-4 py-2 bg-[var(--highlight-background)]">
+            <h3 className="text-2xl text-[var(--primary-color2)] font-bold w-full">
               Graph
             </h3>
             <Graph />
           </div>
           <div className="h-[50%] w-full grid grid-cols-2 gap-4 text-2xl text-[var(--primary-color2)] font-bold">
-            <div className="border-2 border-[var(--border)] rounded-xl p-4 bg-[var(--highlight-background)]">
-              Total incomes
-              <div className="grow h-full flex items-center justify-center text-xl text-[var(--green)]">
-                5000
-              </div>
-            </div>
-            <div className="border-2 border-[var(--border)] rounded-xl p-4 bg-[var(--highlight-background)]">
-              Total expenses
-            </div>
+            <TotalIncome />
+            <TotalExpense />
             <div className="col-span-2 flex items-center justify-center">
-              <div className="border-2 border-[var(--border)] rounded-xl p-4 w-[50%] h-full bg-[var(--highlight-background)]">Total balance</div>
+              <TotalBalance/>
             </div>
           </div>
         </div>

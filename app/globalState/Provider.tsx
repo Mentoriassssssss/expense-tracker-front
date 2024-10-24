@@ -1,6 +1,7 @@
 'use client';
 import { createContext, useContext, useReducer, useEffect } from "react";
 import GetAPI from "../getAPI/getAPI";
+import AwaitGetAPI from "../getAPI/awaitGetAPI";
 
 export type Transaction = {
     _id: string,
@@ -24,6 +25,8 @@ type GlobalState = {
         _id: string,
         username: string,
         name: string,
+        income: number,
+        expense: number,
         money: number,
         transactions?: Transaction[],
     }
@@ -42,6 +45,7 @@ const initState: GlobalState = {
         refreshKey: '',
     },
     apiCore: 'https://expense-tracker-back.up.railway.app/',
+    // apiCore: 'http://localhost:8000/',
 }
 
 const reducer = (state: GlobalState, action: Action) => {
@@ -61,11 +65,18 @@ const reducer = (state: GlobalState, action: Action) => {
                 currentUser: action.payload.currentUser
             }
         case "setTransactions":
+            console.log(action.payload)
+            action.payload.transactions?.sort((a: Transaction, b: Transaction) => {
+                return new Date(a.date).getTime() - new Date(b.date).getTime()
+            })
             return {
                 ...state,
                 currentUser: {
                     ...state.currentUser,
-                    transactions: action.payload
+                    transactions: action.payload.transactions,
+                    income: action.payload.income,
+                    expense: action.payload.expense,
+                    money: action.payload.income - action.payload.expense
                 }
             }
         default:
@@ -86,9 +97,10 @@ export const Provider = ({ children }: { children: React.ReactNode }) => {
     const [state, dispatch] = useReducer(reducer, initState);
     return <Context.Provider value={[state, dispatch]}>
         <GetAPI type="login" />
+        <AwaitGetAPI type="getAllTransactions" />
         {children}
     </Context.Provider>;
 }
 
 export const useGlobal = () => useContext(Context)
-export type { GlobalState }
+export type { GlobalState, Action }

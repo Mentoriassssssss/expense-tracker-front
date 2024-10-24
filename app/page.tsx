@@ -2,7 +2,6 @@ import Graph from "./components/graph";
 import TotalBalance from "./components/totalBalance";
 import TotalExpense from "./components/totalExpense";
 import TotalIncome from "./components/totalIncome";
-import AwaitGetAPI from "./getAPI/awaitGetAPI";
 
 export default function Home() {
 

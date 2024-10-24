@@ -52,9 +52,9 @@ const Graph = () => {
         ]
     }
 
-    return (<div className='h-[90%]'>
+    return (<div className='h-[90%] w-full flex items-center justify-center'>
         {state.key.accessKey && <GetAPI type="getAllTransactions"/>}
-        <Line data={data}/>
+        <Line data={data} className='w-full h-full'/>
     </div>)
 
 }
